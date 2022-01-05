@@ -1,1 +1,38 @@
-<h2 class="{{color}} p-1">{{entry["_source"]["recap"]}}</h2>
+<hr />
+<div class="flex">
+  <div class="w-3/4">
+    <h1 class="text-2xl">Recent Incidents</h1>
+    {% for entry in response['hits']['hits'] %}
+
+    <div class="flex">
+      {% if entry['_source']['action'] == 'good' %} {% set color =
+      "bg-green-200" %} {% else %} {% set color = "bg-red-200" %} {% endif %}
+      <h2 class="font-bold {{color}} p-1">
+        {{entry["_source"]["date"] | format_datetime}}
+      </h2>
+      <h2 class="{{color}} p-1">{{entry["_source"]["recap"]}}</h2>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="w-64">
+    <h1 class="font-strong text-2xl">Cats</h1>
+    <hr />
+    {% for cat in response['aggregations']['cats']['buckets'] %}
+    <h2 class="text-right my-2">
+      {{cat['key']}}
+      <span class="px-2 text-white bg-black">{{cat['doc_count']}}</span>
+    </h2>
+    {% endfor %}
+    <div class="w-64">
+      <h1 class="font-strong text-2xl">Actions</h1>
+      <hr />
+      {% for action in response['aggregations']['actions']['buckets'] %}
+
+      <h2 class="text-right my-2">
+        {{action['key']}}
+        <span class="px-2 text-white bg-black">{{action['doc_count']}}</span>
+      </h2>
+      {% endfor %}
+    </div>
+  </div>
+</div>

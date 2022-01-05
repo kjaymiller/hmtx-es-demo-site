@@ -1,32 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Is your Cat Evil</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://unpkg.com/htmx.org@1.6.1"
-      integrity="sha384-tvG/2mnCFmGQzYC1Oh3qxQ7CkQ9kMzYjWZSNtrRZygHPDDqottzEJsqS4oUVodhW"
-      crossorigin="anonymous"
-    ></script>
-  </head>
-  <body>
-    <div class="container mx-auto my-3">
-      <h1 class="text-2xl">(Evil) Cat Log?</h1>
-      <form action="/query" class="my-3">
-        <input
-          class="border rounded"
-          type="text"
-          name="q"
-          hx-get="/query"
-          hx-trigger="keyup changed delay:500ms"
-          hx-target="#demo-area"
-          placeholder="Begin Typing to See Results"
-        />
-        <div id="search-results"></div>
-        <input type="submit" class="rounded bg-blue-200 p-1 my-2" />
-        <div id="demo-area"></div>
-      </form>
-    </div>
-  </body>
-</html>
+{% extends 'base.html' %} {% block content %}
+<div class="container mx-auto my-4">
+  <h1 class="text-2xl">(Evil) Cat Log?</h1>
+  <form action="/query" class="my-3">
+    <input
+      class="w-1/2 border rounded drop-shadow-md"
+      type="text"
+      name="q"
+      hx-get="/query"
+      hx-trigger="keyup changed delay:500ms"
+      hx-target="#demo-area"
+      placeholder="Begin Typing to See Results"
+    />
+    <div id="search-results"></div>
+    <div id="demo-area"></div>
+  </form>
+</div>
+{% endblock %}

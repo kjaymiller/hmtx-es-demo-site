@@ -1,6 +1,13 @@
 from flask import Flask, request, render_template
 from connection import client
+from datetime import datetime
+
 app = Flask("app")
+
+@app.template_filter()
+def format_datetime(value):
+    dt = datetime.fromisoformat(value)
+    return dt.strftime("%Y-%m-%d %H:%M")
 
 @app.route('/')
 def index():
@@ -24,26 +31,27 @@ def search_incident():
                   ]
                 }
         }
+        sort = [{"date": {"order": "desc"}}]
+        aggs = {
+            "cats": {
+                "terms": {"field": "cat"}
+            },
+            "actions": {
+                "terms": {"field": "action"}
+            }
+        }
+        
         response = client.search(
-            index='cat*', query=query
+            index='cat*', query=query, sort=sort, aggregations=aggs
         )
           
         if response['hits']['total']['value'] == 0 and len(request_query) > 2:
             
             return "<h2>No Results Found</h2>"
     
-        return "\n".join([parse_results(x) for x in response['hits']['hits']])
-    
+        print(response)
+        return render_template('dashboard.html', response=response)
     
     return ''
-    
-def parse_results(entry):
-    """HTML Parser for search results"""
-    if entry['_source']['action'] == 'good':
-        color = "bg-green-200"
-    else:
-        color = "bg-red-200"
-        
-    return render_template('dashboard.html', color=color, entry=entry)
     
 app.run(debug=True)
