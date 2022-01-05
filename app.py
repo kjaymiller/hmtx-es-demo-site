@@ -40,8 +40,10 @@ def search_incident():
 def parse_results(entry):
     """HTML Parser for search results"""
     if entry['_source']['action'] == 'good':
-        color = "#8AE58E"
+        color = "bg-green-200"
     else:
-        color = "E58A8A"
-    return f'<h2 style="background-color: {color}; padding: 1em;">{entry["_source"]["recap"]}</h2>'
+        color = "bg-red-200"
+        
+    return render_template('dashboard.html', color=color, entry=entry)
+    
 app.run(debug=True)

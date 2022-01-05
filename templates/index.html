@@ -3,26 +3,30 @@
   <head>
     <meta charset="UTF-8" />
     <title>Is your Cat Evil</title>
-  </head>
-  <body>
+    <script src="https://cdn.tailwindcss.com"></script>
     <script
       src="https://unpkg.com/htmx.org@1.6.1"
       integrity="sha384-tvG/2mnCFmGQzYC1Oh3qxQ7CkQ9kMzYjWZSNtrRZygHPDDqottzEJsqS4oUVodhW"
       crossorigin="anonymous"
     ></script>
-    <h1>(Evil) Cat Log?</h1>
-    <form action="">
-      <input
-        type="text"
-        name="q"
-        hx-get="/query"
-        hx-trigger="keyup changed delay:500ms"
-        hx-target="#demo-area"
-        placeholder="Begin Typing to See Results"
-      />
-      <div id="search-results"></div>
-      <input type="submit" />
-      <div id="demo-area"></div>
-    </form>
+  </head>
+  <body>
+    <div class="container mx-auto my-3">
+      <h1 class="text-2xl">(Evil) Cat Log?</h1>
+      <form action="/query" class="my-3">
+        <input
+          class="border rounded"
+          type="text"
+          name="q"
+          hx-get="/query"
+          hx-trigger="keyup changed delay:500ms"
+          hx-target="#demo-area"
+          placeholder="Begin Typing to See Results"
+        />
+        <div id="search-results"></div>
+        <input type="submit" class="rounded bg-blue-200 p-1 my-2" />
+        <div id="demo-area"></div>
+      </form>
+    </div>
   </body>
 </html>
