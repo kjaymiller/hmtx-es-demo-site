@@ -1,0 +1,10 @@
+# Linting
+# black
+# isort
+# pylint
+
+# testing
+# pytest
+
+flask
+elasticsearch
